@@ -9,6 +9,8 @@
 - os.system('git clone https://github.com/ufoym/imbalanced-dataset-sampler.git')
 - os.system('cd imbalanced-dataset-sampler && python setup.py install && pip install .')
 
-4. Run main.py
+4. Setup the parameters of your run in config.py
+
+5. Run main.py
 
 
