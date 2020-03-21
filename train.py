@@ -62,8 +62,8 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
             # we optimize all the parameters of the model
             # the optimizer is define prior.
-            optimizer.step()
             scheduler.step()
+            optimizer.step()
 
             _, y_label_ = torch.max(pred_label, 1)
             n_correct += (y_label_ == label).sum().item()
