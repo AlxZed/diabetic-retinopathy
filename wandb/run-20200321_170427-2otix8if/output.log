@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/alex/github/diabetic-retinopathy/main.py", line 53, in <module>
+    main()
+  File "/Users/alex/github/diabetic-retinopathy/main.py", line 29, in main
+    train_ds, val_ds, test_ds = get_transformations(config, dataset_path)
+  File "/Users/alex/github/diabetic-retinopathy/transformations.py", line 46, in get_transformations
+    train_ds = ImageFolderWithPaths(f"{dataset_path}./train/", transform=train_trans)
+  File "/Users/alex/Documents/PyCharm_Environments/lib/python3.7/site-packages/torchvision/datasets/folder.py", line 209, in __init__
+    is_valid_file=is_valid_file)
+  File "/Users/alex/Documents/PyCharm_Environments/lib/python3.7/site-packages/torchvision/datasets/folder.py", line 93, in __init__
+    classes, class_to_idx = self._find_classes(self.root)
+  File "/Users/alex/Documents/PyCharm_Environments/lib/python3.7/site-packages/torchvision/datasets/folder.py", line 122, in _find_classes
+    classes = [d.name for d in os.scandir(dir) if d.is_dir()]
+FileNotFoundError: [Errno 2] No such file or directory: './Desktop/./train/'

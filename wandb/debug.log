@@ -1,0 +1,34 @@
+2020-03-21 13:04:28,845 DEBUG   MainThread:2918 [wandb_config.py:_load_defaults():122] no defaults not found in config-defaults.yaml
+2020-03-21 13:04:28,854 DEBUG   MainThread:2918 [meta.py:setup():97] code probe starting
+2020-03-21 13:04:28,855 DEBUG   MainThread:2918 [meta.py:_setup_code_git():49] probe for git information
+2020-03-21 13:04:28,875 DEBUG   MainThread:2918 [meta.py:_setup_code_program():58] save program starting
+2020-03-21 13:04:28,875 DEBUG   MainThread:2918 [meta.py:_setup_code_program():60] save program starting: /Users/alex/github/diabetic-retinopathy/main.py
+2020-03-21 13:04:28,875 DEBUG   MainThread:2918 [meta.py:_setup_code_program():65] save program saved: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/code/main.py
+2020-03-21 13:04:28,876 DEBUG   MainThread:2918 [meta.py:_setup_code_program():67] save program
+2020-03-21 13:04:28,876 DEBUG   MainThread:2918 [meta.py:setup():119] code probe done
+2020-03-21 13:04:28,895 DEBUG   MainThread:2918 [run_manager.py:__init__():541] Initialized sync for march_2020/2otix8if
+2020-03-21 13:04:28,900 INFO    MainThread:2918 [run_manager.py:wrap_existing_process():1144] wrapping existing process 2907
+2020-03-21 13:04:29,107 INFO    MainThread:2918 [run_manager.py:init_run():924] system metrics and metadata threads started
+2020-03-21 13:04:29,107 INFO    MainThread:2918 [run_manager.py:init_run():963] upserting run before process can begin, waiting at most 10 seconds
+2020-03-21 13:04:29,300 INFO    Thread-14 :2918 [run_manager.py:_upsert_run():1048] saving patches
+2020-03-21 13:04:29,403 INFO    Thread-14 :2918 [run_manager.py:_upsert_run():1052] saving pip packages
+2020-03-21 13:04:29,404 INFO    Thread-14 :2918 [run_manager.py:_upsert_run():1054] initializing streaming files api
+2020-03-21 13:04:29,405 INFO    Thread-14 :2918 [run_manager.py:_upsert_run():1061] unblocking file change observer, beginning sync with W&B servers
+2020-03-21 13:04:29,405 INFO    MainThread:2918 [run_manager.py:wrap_existing_process():1161] informing user process we are ready to proceed
+2020-03-21 13:04:29,411 INFO    MainThread:2918 [run_manager.py:_sync_etc():1268] entering loop for messages from user process
+2020-03-21 13:04:29,419 INFO    MainThread:2918 [run_manager.py:_sync_etc():1291] received message from user process: {"exitcode": 1}
+2020-03-21 13:04:29,419 INFO    MainThread:2918 [run_manager.py:_sync_etc():1377] closing log streams and sending exitcode to W&B
+2020-03-21 13:04:29,420 INFO    MainThread:2918 [run_manager.py:shutdown():1068] shutting down system stats and metadata service
+2020-03-21 13:04:29,859 INFO    Thread-3  :2918 [run_manager.py:_on_file_modified():688] file/dir modified: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/config.yaml
+2020-03-21 13:04:30,009 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/code/main.py
+2020-03-21 13:04:30,010 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/diff.patch
+2020-03-21 13:04:30,012 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/wandb-metadata.json
+2020-03-21 13:04:30,013 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/requirements.txt
+2020-03-21 13:04:30,013 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/output.log
+2020-03-21 13:04:30,014 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/wandb-events.jsonl
+2020-03-21 13:04:30,015 INFO    Thread-3  :2918 [run_manager.py:_on_file_created():677] file/dir created: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/code
+2020-03-21 13:04:30,113 INFO    MainThread:2918 [run_manager.py:shutdown():1080] stopping streaming files and file change observer
+2020-03-21 13:04:30,861 INFO    Thread-3  :2918 [run_manager.py:_on_file_modified():688] file/dir modified: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/wandb-metadata.json
+2020-03-21 13:04:32,943 INFO    MainThread:2918 [run_manager.py:_sync_etc():1389] process only ran for 4 seconds, not syncing files
+30,861 INFO    Thread-3  :2918 [2otix8if:run_manager.py:_on_file_modified():688] file/dir modified: /Users/alex/github/diabetic-retinopathy/wandb/run-20200321_170427-2otix8if/wandb-metadata.json
+2020-03-21 13:04:32,943 INFO    MainThread:2918 [2otix8if:run_manager.py:_sync_etc():1389] process only ran for 4 seconds, not syncing files
