@@ -182,7 +182,7 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
             #filename_of_model = results_prefix + '_trained_model.pt'
             #acc_weight_db[val_acc_db[-1]] = './' + filename_of_state_dict
 
-            datetime_NY = datetime.now(tz_NY)
+        datetime_NY = datetime.now(tz_NY)
 
         print(
                 f"{epoch_amount[-1]}/{N_EPOCHS} | "
