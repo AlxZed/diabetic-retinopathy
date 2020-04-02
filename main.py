@@ -5,7 +5,7 @@ import wandb
 
 from transformations import get_transformations, get_datasets
 from data_loaders import get_dataloaders
-from model import get_model, get_loss, get_added_layers, get_pooling
+from model import get_model, get_loss, get_added_layers, get_pooling, get_features
 from train import training_loop
 from optimizer_scheduler import get_optimizer, get_scheduler
 from weights import get_weights
@@ -32,6 +32,7 @@ def main():
     scheduler = get_scheduler(config, optimizer)
     model = model.to(DEVICE)
     get_weights(config, model)
+    get_features(config, model)
 
     prefix = get_experiment_prefix()
 

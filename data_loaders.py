@@ -4,7 +4,7 @@ from torchsampler import ImbalancedDatasetSampler
 
 def get_dataloaders(config, train_ds, val_ds, test_ds):
 
-    if config['balanced'] is True:
+    if config['balanced_sampler'] is True:
 
         train_dl = DataLoader(
                 train_ds,

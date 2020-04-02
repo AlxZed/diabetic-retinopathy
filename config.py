@@ -7,10 +7,10 @@ config = {
     'optimizer': 'adam',
     'lr': 0.0004,
     'scheduler': 'custom',
-    'weight_decay': '',
+    'weight_loading': './path_to_.pt',
     'added_layers': '',
     'transformations': 5,
-    'random_crop_size': 128,
+    'random_crop_size': 256,
     'pooling': 'mean',
     'n_epochs': 50,
 }
