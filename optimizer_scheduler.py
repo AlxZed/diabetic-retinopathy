@@ -7,13 +7,13 @@ def get_trainable(model_params):
 
 
 def get_optimizer(config, model):
-    if config['optimizer'] is 'adam':
+    if 'adam' in config['optimizer']:
         optimizer = torch.optim.Adam(get_trainable(model.parameters()), lr=config['lr'])
         return optimizer
 
 
 def get_scheduler(config, optimizer):
-    if config['scheduler'] is 'StepLR':
+    if 'StepLR' in config['scheduler']:
         step_size = 5
         gamma = 0.464159
 
@@ -21,7 +21,7 @@ def get_scheduler(config, optimizer):
         config['step_size'] = step_size
         config['gamma'] = gamma
 
-    elif config['scheduler'] is 'ReduceLROnPlateau':
+    elif 'ReduceLROnPlateau' in config['scheduler']:
         mode = 'max'
         factor = 0.25
         patience = 3
@@ -31,7 +31,7 @@ def get_scheduler(config, optimizer):
         config['factor'] = factor
         config['patience'] = patience
 
-    elif config['scheduler'] is 'CosineAnnealingWarmRestarts':
+    elif 'CosineAnnealingWarmRestarts' in config['scheduler']:
         T_0 = 10
         T_mult = 1
         eta_min = 0

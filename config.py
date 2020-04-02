@@ -1,14 +1,15 @@
 config = {
     'model': 'densenet121',
     'pretrained': True,
-    'batch_size': 32,
+    'feature_extraction': False,
+    'balanced_sampler': False,
+    'batch_size': 16,
     'optimizer': 'adam',
-    'lr': 0.01,
-    'scheduler': 'CosineAnnealingWarmRestarts',
-    'loaded_weigths': '',
+    'lr': 0.0004,
+    'scheduler': 'custom',
     'weight_decay': '',
     'added_layers': '',
-    'img_size': 512,
-    'balanced': True,
     'transformations': 5,
+    'random_crop_size': 128,
+    'pooling': 'mean'
 }
