@@ -12,4 +12,5 @@ config = {
     'transformations': 5,
     'random_crop_size': 128,
     'pooling': 'mean'
+    'n_epochs': 50,
 }
