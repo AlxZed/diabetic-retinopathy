@@ -1,7 +1,7 @@
 # diabetic-retinopathy
 
 1. Download the dataset:
-- https://drive.google.com/file/d/1d7l8E4SqDUh3SP5WVEP1ymuynrf9LGZx/view?usp=sharing
+- https://drive.google.com/file/d/1-GiqsODlzOxSBLdzyXkmfJ_903F-r82k/view?usp=sharing
 
 2. Unzip it wherever seems fit and add the path to main.py line 49.
 
