@@ -11,6 +11,6 @@ config = {
     'added_layers': '',
     'transformations': 5,
     'random_crop_size': 128,
-    'pooling': 'mean'
+    'pooling': 'mean',
     'n_epochs': 50,
 }
