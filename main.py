@@ -8,7 +8,7 @@ from data_loaders import get_dataloaders
 from model import get_model, get_loss, get_added_layers, get_pooling, get_features
 from train import training_loop
 from optimizer_scheduler import get_optimizer, get_scheduler
-from weights import get_weights
+from weights import get_state_dict
 from config import config
 from datetime import datetime
 
@@ -22,7 +22,7 @@ def get_experiment_prefix():
 
 def main():
     train_trans, val_trans = get_transformations(config)
-    train_ds, val_ds, test_ds = get_datasets(dataset_path, train_trans, val_trans)
+    train_ds, val_ds, test_ds = get_datasets(config, dataset_path, train_trans, val_trans)
     train_dl, val_dl, test_dl = get_dataloaders(config, train_ds, val_ds, test_ds)
     model = get_model(config)
     model = get_added_layers(config, model)
@@ -31,7 +31,7 @@ def main():
     optimizer = get_optimizer(config, model)
     scheduler = get_scheduler(config, optimizer)
     model = model.to(DEVICE)
-    get_weights(config, model)
+    get_state_dict(config, model)
     get_features(config, model)
 
     prefix = get_experiment_prefix()
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         os.system('git clone https://github.com/ufoym/imbalanced-dataset-sampler.git')
         os.system('cd imbalanced-dataset-sampler && python setup.py install && pip install .')
 
-    #dataset path
+    # dataset path
     dataset_path = './Desktop/'
 
     main()
