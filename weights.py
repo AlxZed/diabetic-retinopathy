@@ -1,7 +1,7 @@
 import torch
 
 
-def get_weights(config, model):
+def get_state_dict(config, model):
 
-    if config['weight_loading'] != '':
-      model.load_state_dict(torch.load(config['weight_loading']))
+    if '.pt' in config['state_dict_path']:
+      model.load_state_dict(torch.load(config['state_dict_path']))

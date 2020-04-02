@@ -55,11 +55,17 @@ def get_transformations(config):
     return train_trans, val_trans
 
 
-def get_datasets(dataset_path, train_trans, val_trans):
+def get_datasets(config, dataset_path, train_trans, val_trans):
 
-    train_ds = ImageFolderWithPaths(f"{dataset_path}/train/", transform=train_trans)
-    val_ds = ImageFolderWithPaths(f"{dataset_path}/val/", transform=val_trans)
-    test_ds = ImageFolderWithPaths(f"{dataset_path}/test/", transform=val_trans)
+    if config['reduce_class_0']:
+        train_ds = ImageFolderWithPaths(f"{dataset_path}/reduced/train/", transform=train_trans)
+        val_ds = ImageFolderWithPaths(f"{dataset_path}/reduced/val/", transform=val_trans)
+        test_ds = ImageFolderWithPaths(f"{dataset_path}/reduced/test/", transform=val_trans)
+
+    else:
+        train_ds = ImageFolderWithPaths(f"{dataset_path}/full/train/", transform=train_trans)
+        val_ds = ImageFolderWithPaths(f"{dataset_path}/full/val/", transform=val_trans)
+        test_ds = ImageFolderWithPaths(f"{dataset_path}/full/test/", transform=val_trans)
 
     print(f'Total Train Images: {len(train_ds)}')
     print(f'Total Val Images: {len(val_ds)}')
