@@ -8,7 +8,7 @@ import torch.nn as nn
 
 def get_model(config):
 
-    if config['pretrained'] == 1:
+    if config['pretrained'] is True:
 
         if 'resnet18' in config['model']:
             model = models.resnet18(pretrained=True)
@@ -53,6 +53,13 @@ def get_model(config):
 def get_loss(config):
     criterion = nn.CrossEntropyLoss()
     return criterion
+
+
+def get_features(config, model):
+    if config['feature_extraction'] is True:
+        # Freeze all parameters:
+        for param in model.parameters():
+            param.requires_grad = False
 
 
 def get_added_layers(config, model):
