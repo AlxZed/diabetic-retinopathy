@@ -18,9 +18,8 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
     loaded_epochs = 0
     flag_count = 0
-    N_EPOCHS = 100
 
-    for epoch in range(N_EPOCHS):
+    for epoch in range(config['n_epochs']):
 
         all_paths = []
         all_ground_truths = []
@@ -186,7 +185,7 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
         quadratic_db.append(quadratic_kappa_score)
 
         print(
-                f"{epoch}/{N_EPOCHS} | "
+                f"{epoch}/{config['n_epochs']} | "
                 f"{datetime_NY.strftime('%H:%M:%S')} | "
                 f"valid acc: {val_acc:9.3f}% | "
                 f"lr: {current_lr:9.8f} | "
@@ -195,7 +194,7 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
                 f"{(epoch_time // 60):9.1f}min")
 
         print(
-                f"{epoch}/{N_EPOCHS} | "
+                f"{epoch}/{config['n_epochs']}| "
                 f"{datetime_NY.strftime('%H:%M:%S')} | "
                 f'class 0: {c0_acc}% | '
                 f'class 1: {c1_acc}% | '
