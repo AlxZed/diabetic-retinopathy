@@ -2,20 +2,23 @@ import wandb
 import datetime
 import time
 import torch
+import sklearn
+from sklearn.metrics import cohen_kappa_score
 
 
-def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, config, DEVICE, prefix, tz_NY):
+def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, config, DEVICE, prefix, timezone):
 
-    epoch_amount = []
     train_loss_db = []
     train_acc_db = []
+
     val_loss_db = []
     val_acc_db = []
+
+    quadratic_db = []
+
     loaded_epochs = 0
     flag_count = 0
-    acc_weight_db = {}
     N_EPOCHS = 100
-
 
     for epoch in range(N_EPOCHS):
 
@@ -62,7 +65,6 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
             # we optimize all the parameters of the model
             # the optimizer is define prior.
-            scheduler.step()
             optimizer.step()
 
             _, y_label_ = torch.max(pred_label, 1)
@@ -93,6 +95,9 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
                 image, label = image.to(DEVICE), label.to(DEVICE)
                 pred_label = model(image)
+
+                # we use the loss function to calculate the loss
+                # the difference between the y and y_, the predicted y
                 loss = criterion(pred_label, label)
 
                 # epoch stats
@@ -153,7 +158,7 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
                 # generating status variables
                 epoch_time = time.time() - init_time
-                epoch_amount.append(epoch + loaded_epochs + 1)
+                epoch = epoch + loaded_epochs + 1
 
                 val_loss = total_loss / n_samples
                 # val_acc = n_correct / n_samples * 100
@@ -164,36 +169,33 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
         # get current lr
         for param_group in optimizer.param_groups:
-            old_lr = param_group['lr']
-
-        # if epoch_amount[-1] > 1:
-        #   if val_acc_db[-1] < (val_acc_db[-2]):
-        #     flag_count+=1
-
-        #   if val_acc_db[-1] == (val_acc_db[-2]):
-        #     flag_count+=1
+            current_lr = param_group['lr']
 
         # backup if best acc
         if len(val_acc_db) > 5 and val_acc_db[-1] > max(val_acc_db[:-1]):
-            results_prefix = f'{prefix}_{epoch_amount[-1]}_{round(val_acc_db[-1])}%'
+            results_prefix = f'{prefix}_{epoch}_{round(val_acc_db[-1])}%'
             filename_of_state_dict = results_prefix + '_state_dict.pt'
+            filename_of_model = results_prefix + '_trained_model.pt'
             torch.save(model.state_dict(), filename_of_state_dict)
 
-            #filename_of_model = results_prefix + '_trained_model.pt'
-            #acc_weight_db[val_acc_db[-1]] = './' + filename_of_state_dict
+        datetime_NY = datetime.now(timezone)
+        quadratic_kappa_score = sklearn.metrics.cohen_kappa_score(all_ground_truths, all_predictions,
+                                                                  labels=[0, 1, 2, 3, 4], weights='quadratic',
+                                                                  sample_weight=None)
 
-        datetime_NY = datetime.now(tz_NY)
+        quadratic_db.append(quadratic_kappa_score)
 
         print(
-                f"{epoch_amount[-1]}/{N_EPOCHS} | "
+                f"{epoch}/{N_EPOCHS} | "
                 f"{datetime_NY.strftime('%H:%M:%S')} | "
                 f"valid acc: {val_acc:9.3f}% | "
-                f"current lr: {old_lr:9.8f} | "
-                f"flag count: {flag_count} | "
+                f"lr: {current_lr:9.8f} | "
+                f"flags: {flag_count} | "
+                f"kappa acc: {quadratic_kappa_score:9.3f} | "
                 f"{(epoch_time // 60):9.1f}min")
 
         print(
-                f"{epoch_amount[-1]}/{N_EPOCHS} | "
+                f"{epoch}/{N_EPOCHS} | "
                 f"{datetime_NY.strftime('%H:%M:%S')} | "
                 f'class 0: {c0_acc}% | '
                 f'class 1: {c1_acc}% | '
@@ -201,13 +203,13 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
                 f'class 3: {c3_acc}% | '
                 f'class 4: {c4_acc}%\n')
 
-        # custom scheduler
-        # if flag_count == 5:
-        #   for param_group in optimizer.param_groups:
-        #     new_lr = old_lr * 0.50
-        #     param_group['lr'] = new_lr
-        #     flag_count = 0
-        #     model.load_state_dict(torch.load(acc_weight_db[max(acc_weight_db)]))ooin_loss_db[-1]})
+        if config['scheduler'] == 'custom':
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = current_lr * 0.97
+
+        else:
+            scheduler.step(val_acc)
 
         wandb.log({"Val Accuracy": val_acc, "Val Loss": val_loss_db[-1],
-                   "Train Accuracy": train_acc_db[-1], "Learning Rate": old_lr})
+                   "Train Accuracy": train_acc_db[-1], "Learning Rate": current_lr,
+                   "Quadratic Kappa": quadratic_kappa_score})
