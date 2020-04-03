@@ -5,6 +5,8 @@
 
 2. Unzip it wherever seems fit and add the path to main.py line 49.
 
-3. In config.py, setup the parameters of your run.
+3. Install requirements.
 
-4. Run main.py
+4. In config.py, setup the parameters of your run.
+
+5. Run main.py
