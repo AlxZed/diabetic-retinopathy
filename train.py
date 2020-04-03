@@ -172,7 +172,7 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
 
         # backup if best acc
         if len(val_acc_db) > 5 and val_acc_db[-1] > max(val_acc_db[:-1]):
-            results_prefix = f'{prefix}_{epoch}_{round(val_acc_db[-1])}%'
+            results_prefix = f'{epoch}_{round(val_acc_db[-1])}%'
             filename_of_state_dict = results_prefix + '_state_dict.pt'
             filename_of_model = results_prefix + '_trained_model.pt'
             torch.save(model.state_dict(), filename_of_state_dict)
