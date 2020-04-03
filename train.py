@@ -209,6 +209,6 @@ def training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, conf
         else:
             scheduler.step(val_acc)
 
-        wandb.log({"Val Accuracy": val_acc, "Val Loss": val_loss_db[-1],
+        wandb.log({"Val Accuracy": val_acc, "Val Loss": val_loss_db[-1], "Train Loss": train_loss_db[-1]
                    "Train Accuracy": train_acc_db[-1], "Learning Rate": current_lr,
                    "Quadratic Kappa": quadratic_kappa_score})
