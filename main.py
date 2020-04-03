@@ -46,7 +46,7 @@ if __name__ == '__main__':
     timezone = pytz.timezone('America/New_York')
 
     # logging wandb session
-    os.system("wandb login 91b90542bdde4812440c8b554b")
+    os.system("wandb login 91b90542bdde4812440c8b554b9376667c28643f")
 
     # initialize CUDA
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
