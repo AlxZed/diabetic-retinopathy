@@ -13,10 +13,10 @@ from config import config
 from datetime import datetime
 
 
-def get_experiment_prefix():
+def get_experiment_prefix(config):
     tz_NY = pytz.timezone('America/New_York')
     datetime_NY = datetime.now(tz_NY)
-    prefix = f"{datetime_NY.strftime('%D')}_{datetime_NY.strftime('%H:%M:%S')}"
+    prefix = f"{config['model']}_{datetime_NY.strftime('%D')}"
     return prefix
 
 
@@ -34,9 +34,9 @@ def main():
     get_state_dict(config, model)
     get_features(config, model)
 
-    prefix = get_experiment_prefix()
+    prefix = get_experiment_prefix(config)
 
-    wandb.init(project="march_2020", name=prefix, config=config)
+    wandb.init(project="april_2020", name=prefix, config=config)
 
     training_loop(model, optimizer, scheduler, val_dl, train_dl, criterion, config, DEVICE, prefix, timezone)
 
