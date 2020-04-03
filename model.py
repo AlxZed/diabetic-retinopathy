@@ -20,11 +20,9 @@ def get_model(config):
             model = models.densenet201(pretrained=True)
 
         elif 'efficientnetb0' in config['model']:
-            os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_pretrained('efficientnet-b0')
 
         elif 'efficientnetb1' in config['model']:
-            os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_pretrained('efficientnet-b1')
 
         elif 'shufflenet' in config['model']:
@@ -38,19 +36,15 @@ def get_model(config):
             model = models.densenet201(pretrained=False)
 
         elif 'efficientnetb0' in config['model']:
-            os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b0')
 
         elif 'efficientnetb1' in config['model']:
-            os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b1')
 
         elif 'efficientnetb2' in config['model']:
-            os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b2')
             
         elif 'efficientnetb3' in config['model']:
-            os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b3')
 
         elif 'shufflenet' in config['model']:
