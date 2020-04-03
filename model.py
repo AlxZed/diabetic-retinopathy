@@ -45,6 +45,14 @@ def get_model(config):
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b1')
 
+        elif 'efficientnetb2' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_name('efficientnet-b2')
+            
+        elif 'efficientnetb3' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_name('efficientnet-b3')
+
         elif 'shufflenet' in config['model']:
             model = torch.hub.load('pytorch/vision:v0.5.0', 'shufflenet_v2_x1_0', pretrained=False)
     return model
