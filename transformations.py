@@ -46,6 +46,13 @@ def get_transformations(config):
             transforms.ToTensor(),
             transforms.Normalize(_mean, _std),
         ])
+        
+    elif config['transformations'] == 1:
+        train_trans = transforms.Compose([
+            transforms.RandomCrop(config['random_crop_size']),
+            transforms.ToTensor(),
+            transforms.Normalize(_mean, _std),
+        ])
 
     val_trans = transforms.Compose([
         transforms.ToTensor(),
