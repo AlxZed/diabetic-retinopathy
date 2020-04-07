@@ -28,21 +28,29 @@ def get_transformations(config):
     _std = [0.203, 0.1411, 0.1004]
 
     if config['transformations'] == 5:
-      train_trans = transforms.Compose([
+        train_trans = transforms.Compose([
           transforms.RandomCrop(config['random_crop_size']),
           transforms.RandomHorizontalFlip(),
           transforms.RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=3),
           transforms.RandomAffine(degrees=(-180, 180),scale=(0.8889, 1.0),shear=(-36, 36)),
           transforms.ColorJitter(contrast=(0.9, 1.1)),
           transforms.ToTensor(),
-          transforms.Normalize(_mean, _std),
-      ])
+          transforms.Normalize(_mean, _std)])
+    
+        val_trans = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize(_mean, _std),
+        ])
 
     elif config['transformations'] == 3:
         train_trans = transforms.Compose([
             transforms.RandomCrop(config['random_crop_size']),
             transforms.RandomHorizontalFlip(),
             transforms.ColorJitter(contrast=(0.9, 1.1)),
+            transforms.ToTensor(),
+            transforms.Normalize(_mean, _std)])
+    
+        val_trans = transforms.Compose([
             transforms.ToTensor(),
             transforms.Normalize(_mean, _std),
         ])
@@ -51,13 +59,10 @@ def get_transformations(config):
         train_trans = transforms.Compose([
             transforms.RandomCrop(config['random_crop_size']),
             transforms.ToTensor(),
-            transforms.Normalize(_mean, _std),
+    
+        val_trans = transforms.Compose([
+            transforms.ToTensor(),
         ])
-
-    val_trans = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize(_mean, _std),
-    ])
 
     return train_trans, val_trans
 
