@@ -5,7 +5,9 @@ import wandb
 
 from transformations import get_transformations, get_datasets
 from data_loaders import get_dataloaders
-from model import get_model, get_loss, get_added_layers, get_pooling, get_features
+from model import get_model, get_added_layers, get_features
+from loss import get_loss
+from pooling import get_pooling
 from train import training_loop
 from optimizer_scheduler import get_optimizer, get_scheduler
 from weights import get_state_dict
@@ -16,7 +18,6 @@ from datetime import datetime
 def get_experiment_prefix(config):
     tz_NY = pytz.timezone('America/New_York')
     datetime_NY = datetime.now(tz_NY)
-    prefix = f"{config['model']}_{datetime_NY.strftime('%D')}"
     return prefix
 
 
@@ -26,7 +27,7 @@ def main():
     train_dl, val_dl, test_dl = get_dataloaders(config, train_ds, val_ds, test_ds)
     model = get_model(config)
     model = get_added_layers(config, model)
-    get_pooling(config)
+    model = get_pooling(config, model)
     criterion = get_loss(config)
     optimizer = get_optimizer(config, model)
     scheduler = get_scheduler(config, optimizer)
@@ -35,6 +36,8 @@ def main():
     get_features(config, model)
 
     prefix = get_experiment_prefix(config)
+
+    prefix = f"{config['model']}_{config['batch_size']}}"
 
     wandb.init(project="april_2020", name=prefix, config=config)
 

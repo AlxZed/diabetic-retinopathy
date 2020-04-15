@@ -1,6 +1,5 @@
 from efficientnet_pytorch import EfficientNet
 from torchvision import models
-from torch.nn.parameter import Parameter
 import torch
 import os
 import torch.nn as nn
@@ -13,54 +12,106 @@ def get_model(config):
         if 'resnet18' in config['model']:
             model = models.resnet18(pretrained=True)
 
-        elif 'densenet121' in config['model']:
+        if 'resnet50' in config['model']:
+            model = models.resnet50(pretrained=True)
+
+        elif '121' in config['model']:
             model = models.densenet121(pretrained=True)
 
-        elif 'densenet201' in config['model']:
+        elif '201' in config['model']:
             model = models.densenet201(pretrained=True)
 
-        elif 'efficientnetb0' in config['model']:
+        elif 'b0' in config['model']:
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_pretrained('efficientnet-b0')
 
-        elif 'efficientnetb1' in config['model']:
+        elif 'b1' in config['model']:
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_pretrained('efficientnet-b1')
 
-        elif 'shufflenet' in config['model']:
+        elif 'b2' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_pretrained('efficientnet-b2')
+
+        elif 'b3' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_pretrained('efficientnet-b3')
+
+        elif 'b4' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_pretrained('efficientnet-b4')
+
+        elif 'b5' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_pretrained('efficientnet-b5')
+
+        elif 'b6' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_pretrained('efficientnet-b6')
+
+        elif 'b7' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_pretrained('efficientnet-b7')
+
+        elif 'shuffle' in config['model']:
             model = torch.hub.load('pytorch/vision:v0.5.0', 'shufflenet_v2_x1_0', pretrained=True)
 
+        elif 'resnext50_32x4d' in config['model']:
+            model = torch.hub.load('pytorch/vision:v0.5.0', 'resnext50_32x4d', pretrained=True)
+
     else:
-        if 'densenet121' in config['model']:
+
+        if 'resnet18' in config['model']:
+            model = models.resnet18(pretrained=False)
+
+        if 'resnet50' in config['model']:
+            model = models.resnet50(pretrained=False)
+
+        elif '121' in config['model']:
             model = models.densenet121(pretrained=False)
 
-        elif 'densenet201' in config['model']:
+        elif '201' in config['model']:
             model = models.densenet201(pretrained=False)
 
-        elif 'efficientnetb0' in config['model']:
+        elif 'b0' in config['model']:
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b0')
 
-        elif 'efficientnetb1' in config['model']:
+        elif 'b1' in config['model']:
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b1')
 
-        elif 'efficientnetb2' in config['model']:
+        elif 'b2' in config['model']:
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b2')
-            
-        elif 'efficientnetb3' in config['model']:
+
+        elif 'b3' in config['model']:
             os.system('pip install efficientnet_pytorch')
             model = EfficientNet.from_name('efficientnet-b3')
 
+        elif 'b4' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_name('efficientnet-b4')
+
+        elif 'b5' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_name('efficientnet-b5')
+
+        elif 'b6' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_name('efficientnet-b6')
+
+        elif 'b7' in config['model']:
+            os.system('pip install efficientnet_pytorch')
+            model = EfficientNet.from_name('efficientnet-b7')
+
         elif 'shufflenet' in config['model']:
             model = torch.hub.load('pytorch/vision:v0.5.0', 'shufflenet_v2_x1_0', pretrained=False)
+
+        elif 'resnext50_32x4d' in config['model']:
+            model = torch.hub.load('pytorch/vision:v0.5.0', 'resnext50_32x4d', pretrained=False)
+
     return model
-
-
-def get_loss(config):
-    criterion = nn.CrossEntropyLoss()
-    return criterion
 
 
 def get_features(config, model):
@@ -85,23 +136,3 @@ def get_added_layers(config, model):
           nn.Linear(256, 5))
 
     return model
-
-
-def get_pooling(config):
-
-    if 'mean' in config['pooling']:
-        def gem(x, p=3, eps=1e-6):
-            return F.avg_pool2d(x.clamp(min=eps).pow(p), (x.size(-2), x.size(-1))).pow(1. / p)
-
-        class GeM(nn.Module):
-            def __init__(self, p=3, eps=1e-6):
-                super(GeM, self).__init__()
-                self.p = Parameter(torch.ones(1) * p)
-                self.eps = eps
-
-            def forward(self, x):
-                return gem(x, p=self.p, eps=self.eps)
-
-            def __repr__(self):
-                return self.__class__.__name__ + '(' + 'p=' + '{:.4f}'.format(
-                        self.p.data.tolist()[0]) + ', ' + 'eps=' + str(self.eps) + ')'
